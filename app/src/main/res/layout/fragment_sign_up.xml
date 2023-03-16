@@ -13,7 +13,8 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="50dp"
-        android:src="@drawable/sigupicon" />
+        android:src="@drawable/sigupicon"
+        android:contentDescription="Making Account" />
 
     <EditText
         android:layout_marginTop="15dp"
