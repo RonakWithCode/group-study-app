@@ -1,18 +1,60 @@
 package com.crazyostudio.groupstudyapp.Model;
 
 public class UserAccountModel {
-    private String id,name,mail,pass;
-    private long createTime;
+    private String id,UserDP,name,mail,pass,gander;
+    private long createTime,Number;
+    private int age;
+    private boolean isPublic;
 
-    public UserAccountModel() {
-    }
+    public UserAccountModel(){}
 
-    public UserAccountModel(String id, String name, String mail, String pass, long createTime) {
+    public UserAccountModel(String id, String userDP, String name, String mail, String pass, long createTime) {
         this.id = id;
+        UserDP = userDP;
         this.name = name;
         this.mail = mail;
         this.pass = pass;
         this.createTime = createTime;
+    }
+
+    public String getUserDP() {
+        return UserDP;
+    }
+
+    public void setUserDP(String userDP) {
+        UserDP = userDP;
+    }
+
+    public String getGander() {
+        return gander;
+    }
+
+    public void setGander(String gander) {
+        this.gander = gander;
+    }
+
+    public long getNumber() {
+        return Number;
+    }
+
+    public void setNumber(long number) {
+        Number = number;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public boolean isPublic() {
+        return isPublic;
+    }
+
+    public void setPublic(boolean aPublic) {
+        isPublic = aPublic;
     }
 
     public String getId() {
