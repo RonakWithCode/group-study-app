@@ -1,7 +1,5 @@
 package com.crazyostudio.groupstudyapp.MFragment;
 
-import static com.crazyostudio.groupstudyapp.ClassHolders.basic.Check;
-
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
@@ -29,8 +27,8 @@ import com.google.firebase.storage.StorageReference;
 import java.util.Objects;
 
 public class SignUpFragment extends Fragment {
-    FragmentSignUpBinding binding;
-    ProgressDialog bar;
+     FragmentSignUpBinding binding;
+     ProgressDialog bar;
      boolean imageBts;
      private StorageReference reference;
      FirebaseDatabase db;
@@ -50,36 +48,7 @@ public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, 
                         .maxResultSize(1080, 1080)
                         .start(1));
         binding.Login.setOnClickListener(view-> StartLogin());
-        binding.SignBtu.setOnClickListener(view -> {
-            for (int i = 0; i < 4; i++) {
-                switch (i) {
-                    case 0:
-                        if (Check(binding.Name)) {
-                            binding.Name.setError("Enter Name");
-                            i = 0;
-                            break;
-                        }
-                    case 1:
-
-                        if (Check(binding.mail)) {
-                            binding.mail.setError("Enter Mail");
-                            i = 0;
-                            break;
-                        }
-                    case 2:
-                        if (Check(binding.pass)) {
-                            binding.pass.setError("Enter Password");
-                            i = 0;
-                            break;
-                        }
-                    case 3:
-                        CreateAccount();
-                        break;
-                    default:
-                        break;
-                }
-            }
-        });
+        binding.SignBtu.setOnClickListener(view -> CreateAccount());
         return binding.getRoot();
     }
     public void StartLogin(){
@@ -100,12 +69,14 @@ public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, 
     private void CreateAccount() {
         bar.setMessage("Wait Account is Creating");
         bar.show();
-        auth.createUserWithEmailAndPassword(binding.mail.getText().toString(),binding.pass.getText().toString()).addOnSuccessListener(authResult ->
-                        UploadImage(dataUri))
-                .addOnFailureListener(e ->
-        {
-            Toast.makeText(getContext(), "Some Things was Wornrg..", Toast.LENGTH_SHORT).show();
-            bar.dismiss();
+        auth.createUserWithEmailAndPassword(binding.mail.getText().toString(),binding.pass.getText().toString()).addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                UploadImage(dataUri);
+            }
+        }).addOnFailureListener(e -> {
+            if (bar.isShowing()) {
+                bar.dismiss();
+            }
         });
     }
     private void UploadImage(Uri image) {
@@ -118,12 +89,25 @@ public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, 
         StorageReference file = reference.child(System.currentTimeMillis() + endName);
         file.putFile(image).addOnSuccessListener(taskSnapshot -> file.getDownloadUrl().addOnSuccessListener(uri -> {
             UserAccountModel userAccountModel = new UserAccountModel(auth.getUid(),uri.toString(),binding.Name.getText().toString(),binding.mail.getText().toString(),binding.pass.getText().toString(),System.currentTimeMillis());
-            db.getReference().child("Accounts").child(Objects.requireNonNull(auth.getUid())).setValue(userAccountModel);
-            if (bar.isShowing()) {
-                bar.dismiss();
-                startActivity(new Intent(getContext(), MainActivity.class));
-            }
-        })).addOnFailureListener(e -> Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_SHORT).show());
+            db.getReference().child("Accounts").child(Objects.requireNonNull(auth.getUid())).setValue(userAccountModel).addOnSuccessListener(unused -> {
+                if (bar.isShowing()) {
+                    bar.dismiss();
+                    startActivity(new Intent(getContext(), MainActivity.class));
+                }
+            }).addOnFailureListener(e -> Objects.requireNonNull(auth.getCurrentUser()).delete()
+                    .addOnCompleteListener(task -> {
+                        if (task.isSuccessful()) {
+                            Toast.makeText(getContext(), "Try later,", Toast.LENGTH_LONG).show();
+                        }
+                    }));
+
+        })).addOnFailureListener(e ->
+                Objects.requireNonNull(auth.getCurrentUser()).delete()
+                        .addOnCompleteListener(task -> {
+                            if (task.isSuccessful()) {
+                                Toast.makeText(getContext(), "Try later,", Toast.LENGTH_LONG).show();
+                            }
+                        }));
     }
 
 }

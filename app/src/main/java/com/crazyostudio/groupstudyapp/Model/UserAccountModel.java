@@ -5,8 +5,10 @@ public class UserAccountModel {
     private long createTime,Number;
     private int age;
     private boolean isPublic;
-
     public UserAccountModel(){}
+
+
+
 
     public UserAccountModel(String id, String userDP, String name, String mail, String pass, long createTime) {
         this.id = id;
