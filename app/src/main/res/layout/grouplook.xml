@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="103dp"
+    android:layout_marginEnd="1dp"
+    android:background="@color/white"
+    android:layout_marginStart="1dp"
+    android:layout_marginTop="6dp">
+
+    <com.makeramen.roundedimageview.RoundedImageView
+        android:id="@+id/UserImage"
+        android:layout_width="90dp"
+        android:layout_height="90dp"
+        android:layout_marginStart="2dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/userimage"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:riv_border_color="#333333"
+        app:riv_border_width="2dip"
+        app:riv_corner_radius="30dip"
+        app:riv_mutate_background="true"
+        app:riv_oval="true"
+        tools:ignore="MissingConstraints" />
+
+    <com.makeramen.roundedimageview.RoundedImageView
+        android:id="@+id/selected"
+        android:layout_width="20dp"
+        android:visibility="gone"
+        android:layout_height="20dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/ic_launcher_background"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.927"
+        app:riv_border_color="#333333"
+        app:riv_border_width="2dip"
+        app:riv_corner_radius="30dip"
+        app:riv_mutate_background="true"
+        app:riv_oval="true"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="72dp" />
+
+    <TextView
+        android:id="@+id/name"
+        android:layout_width="170dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="22dp"
+        android:layout_marginTop="18dp"
+        android:maxLines="1"
+        android:text="User Name"
+        android:textColor="@color/black"
+        android:textSize="19sp"
+        app:layout_constraintStart_toEndOf="@+id/UserImage"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/lastStatus"
+        android:layout_width="170dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="22dp"
+        android:layout_marginTop="12dp"
+        android:maxLines="2"
+        android:text="@string/user"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        app:layout_constraintStart_toEndOf="@+id/UserImage"
+        app:layout_constraintTop_toBottomOf="@+id/name" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:id="@+id/message_send"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="5dp"
+
+        android:layout_marginTop="5dp"
+        android:maxWidth="350dp"
+        android:layout_marginRight="3dp"
+        android:background="@drawable/layout_bg"
+        android:paddingLeft="15dp"
+        android:paddingTop="5dp"
+        android:paddingRight="15dp"
+        android:paddingBottom="7dp">
+        <TextView
+            android:id="@+id/usernames"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:text="User Name"
+            android:textColor="#222"
+            android:textSize="17sp" />
+        <TextView
+            android:id="@+id/text"
+            android:layout_below="@id/usernames"
+            android:layout_width="200dp"
+            android:layout_marginTop="2.2dp"
+            android:layout_height="wrap_content"
+            android:text="demo Text"
+            android:textColor="#222"
+            android:textSize="17sp" />
+
+        <TextClock
+            android:id="@+id/time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/text"
+            android:layout_toEndOf="@+id/text"
+            android:text="1:30 P.M."
+            android:textColor="#888" />
+    </RelativeLayout>
+</RelativeLayout>

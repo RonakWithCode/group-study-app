@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "326776157951",
+    "project_id": "group-study-app-a7e86",
+    "storage_bucket": "group-study-app-a7e86.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:326776157951:android:5c8579b315a733e8143eca",
+        "android_client_info": {
+          "package_name": "com.crazyostudio.groupstudyapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "326776157951-8kkgct9bb39saracql4es0737elr6cd4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDiA7DEhmaQNfWHLBEkP5fmBvDbkyp4prE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "326776157951-8kkgct9bb39saracql4es0737elr6cd4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
