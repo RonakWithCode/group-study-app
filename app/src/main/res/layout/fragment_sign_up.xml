@@ -11,7 +11,7 @@
         android:id="@+id/userImage"
         android:layout_width="229dp"
         android:layout_height="219dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="5dp"
         android:scaleType="fitXY"
         android:src="@drawable/userimage"
         app:layout_constraintEnd_toEndOf="parent"
@@ -94,7 +94,7 @@
         android:background="@drawable/round_text"
         android:ems="10"
         android:hint="@string/password"
-        android:inputType="textPassword"
+        android:inputType="number"
         android:padding="15dp"
         android:textColor="@color/white"
         android:textColorHint="@color/white"
@@ -103,6 +103,60 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/mail" />
 
+    <Button
+        android:id="@+id/code"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="28dp"
+        android:layout_marginBottom="4dp"
+        android:text="Check"
+        app:layout_constraintBottom_toBottomOf="@+id/pass"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/mail"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <EditText
+        android:id="@+id/work"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="20dp"
+        android:autofillHints=""
+        android:background="@drawable/round_text"
+        android:ems="10"
+        android:hint="@string/work"
+        android:inputType="text"
+        android:padding="15dp"
+        android:textColor="@color/white"
+        android:textColorHint="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/pass" />
+
+
+
+    <EditText
+        android:id="@+id/bio"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="20dp"
+        android:autofillHints=""
+        android:background="@drawable/round_text"
+        android:ems="10"
+        android:hint="Bio"
+        android:inputType="text"
+        android:padding="15dp"
+        android:textColor="@color/white"
+        android:textColorHint="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/work"
+        tools:ignore="LabelFor" />
 
     <RadioGroup
         android:id="@+id/radioGroup"
@@ -112,7 +166,7 @@
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/pass">
+        app:layout_constraintTop_toBottomOf="@+id/bio">
 
         <RadioButton
             android:id="@+id/radioM"

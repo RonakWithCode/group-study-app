@@ -19,16 +19,24 @@ import com.crazyostudio.groupstudyapp.Model.UserAccountModel;
 import com.crazyostudio.groupstudyapp.R;
 import com.crazyostudio.groupstudyapp.databinding.FragmentSignUpBinding;
 import com.github.dhaval2404.imagepicker.ImagePicker;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.FirebaseException;
+import com.google.firebase.FirebaseTooManyRequestsException;
 import com.google.firebase.analytics.FirebaseAnalytics;
+import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
+import com.google.firebase.auth.FirebaseAuthMissingActivityForRecaptchaException;
+import com.google.firebase.auth.PhoneAuthCredential;
+import com.google.firebase.auth.PhoneAuthOptions;
+import com.google.firebase.auth.PhoneAuthProvider;
 import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 import java.util.Objects;
+import java.util.concurrent.TimeUnit;
 
 public class SignUpFragment extends Fragment {
     FragmentSignUpBinding binding;
@@ -38,6 +46,7 @@ public class SignUpFragment extends Fragment {
     private StorageReference reference;
     FirebaseDatabase db;
     private Uri dataUri;
+
     private FirebaseAuth auth;
 
     @Override
@@ -45,7 +54,7 @@ public class SignUpFragment extends Fragment {
         binding = FragmentSignUpBinding.inflate(inflater, container, false);
         auth = FirebaseAuth.getInstance();
         db = FirebaseDatabase.getInstance();
-        mFirebaseAnalytics = FirebaseAnalytics.getInstance(getContext());
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(requireContext());
         reference = FirebaseStorage.getInstance().getReference("Image");
         bar = new ProgressDialog(getContext());
         binding.userImage.setOnClickListener(view ->
@@ -105,14 +114,14 @@ public class SignUpFragment extends Fragment {
             } else {
                 gander = "female";
             }
-            UserAccountModel userAccountModel = new UserAccountModel(auth.getUid(), uri.toString(), binding.Name.getText().toString(), binding.mail.getText().toString(), binding.pass.getText().toString(), System.currentTimeMillis(), Long.parseLong(binding.Number.getText().toString()), gander);
+            UserAccountModel userAccountModel = new UserAccountModel(auth.getUid(), uri.toString(), binding.Name.getText().toString(), binding.mail.getText().toString(), binding.pass.getText().toString(), System.currentTimeMillis(), Long.parseLong(binding.Number.getText().toString()), gander,binding.bio.getText().toString(),binding.work.getText().toString());
             db.getReference().child("Accounts").child(Objects.requireNonNull(auth.getUid())).setValue(userAccountModel).addOnSuccessListener(unused -> {
                 if (bar.isShowing()) {
                     bar.dismiss();
 
                     UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
                             .setDisplayName(binding.Name.getText().toString())
-                            .setPhotoUri(uri)
+                            .setPhotoUri(Uri.parse(uri.toString()))
                             .build();
                     Objects.requireNonNull(auth.getCurrentUser()).updateProfile(profileUpdates)
                             .addOnCompleteListener(task -> {
@@ -134,7 +143,7 @@ public class SignUpFragment extends Fragment {
 
 
                                                                     startActivity(new Intent(getContext(), MainActivity.class));
-                                                                    getActivity().finish();                                                                    }
+                                                                    requireActivity().finish();                                                                    }
                                                             });
 
                                                 }

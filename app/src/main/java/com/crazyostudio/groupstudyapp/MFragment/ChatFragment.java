@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import com.bumptech.glide.Glide;
 import com.crazyostudio.groupstudyapp.Adapter.ChatAdapters;
 import com.crazyostudio.groupstudyapp.Model.ChatModel;
+import com.crazyostudio.groupstudyapp.R;
 import com.crazyostudio.groupstudyapp.databinding.FragmentChatBinding;
 import com.github.dhaval2404.imagepicker.ImagePicker;
 import com.google.firebase.auth.FirebaseAuth;
@@ -49,13 +50,17 @@ public class ChatFragment extends Fragment  {
         UserBio = getActivity().getIntent().getStringExtra("Bio");
         SandId = Objects.requireNonNull(auth.getCurrentUser()).getUid();
         UserId = getActivity().getIntent().getStringExtra("UserId");
-
-        binding.toolbar2.setOnClickListener(view -> {
-//            Intent intent = new Intent(this, SeeUserProfile.class);
-//            intent.putExtra("name",UserName);
-//            intent.putExtra("Images",UserImage);
-//            intent.putExtra("Bio",UserBio);
-//            startActivity(intent);
+        binding.toolbar2.setOnClickListener(View->
+        {
+            Bundle bundle = new Bundle();
+            bundle.putString("name",UserName);
+            bundle.putString("image",UserImage);
+            bundle.putString("bio",UserBio);
+            bundle.putString("Userid",UserId);
+            ChatUserProfileFragment makeGroupFragment = new ChatUserProfileFragment();
+            makeGroupFragment.setArguments(bundle);
+            assert getFragmentManager() != null;
+            getFragmentManager().beginTransaction().replace(R.id.fr ,makeGroupFragment).commit();
         });
 
 

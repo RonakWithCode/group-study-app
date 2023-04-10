@@ -1,22 +1,17 @@
 package com.crazyostudio.groupstudyapp.MFragment;
 
 import android.annotation.SuppressLint;
-import android.app.ProgressDialog;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-
-import com.crazyostudio.groupstudyapp.Adapter.GroupAdapters;
-import com.crazyostudio.groupstudyapp.Adapter.UserInfoAdapters;
 import com.crazyostudio.groupstudyapp.Adapter.getUserAdapters;
 import com.crazyostudio.groupstudyapp.Model.UserAccountModel;
-import com.crazyostudio.groupstudyapp.R;
 import com.crazyostudio.groupstudyapp.databinding.FragmentUserlayoutBinding;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -32,7 +27,6 @@ public class UserlayoutFragment extends Fragment {
     FragmentUserlayoutBinding binding;
     getUserAdapters groupAdapters;
     FirebaseDatabase users;
-    ProgressDialog bar;
     FirebaseAuth auth;
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
@@ -45,6 +39,7 @@ public class UserlayoutFragment extends Fragment {
         return binding.getRoot();
     }
     void getUser() {
+//        MakeFriendModel models;
         ArrayList<UserAccountModel> userInfoS = new ArrayList<>();
         groupAdapters = new getUserAdapters(userInfoS, getContext());
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
@@ -56,17 +51,16 @@ public class UserlayoutFragment extends Fragment {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 userInfoS.clear();
                 for (DataSnapshot snapshot1 : snapshot.getChildren()) {
-                    UserAccountModel userInfo = snapshot1.getValue(UserAccountModel.class);
-                    if (!Objects.equals(snapshot1.getKey(), auth.getUid())) {
-                        assert userInfo != null;
-                        userInfo.setId(snapshot1.getKey());
-                        userInfoS.add(userInfo);
-
+                        if (!Objects.equals(snapshot1.getKey(), auth.getUid())) {
+                            UserAccountModel userInfo = snapshot1.getValue(UserAccountModel.class);
+                            assert userInfo != null;
+                            userInfoS.add(userInfo);
+                            binding.rec.setVisibility(View.VISIBLE);
+                            binding.text.setVisibility(View.INVISIBLE);
+                        }
                     }
                     groupAdapters.notifyDataSetChanged();
-
                 }
-            }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {

@@ -63,7 +63,6 @@ public class UserInfoAdapters extends RecyclerView.Adapter<UserInfoAdapters.User
         });
 
         floatingActionButton.setOnClickListener(view ->{
-
             onCheck.setResult(userid);
         });
 

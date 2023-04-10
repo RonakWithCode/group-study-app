@@ -53,10 +53,9 @@ public class MakeGroupFragment extends Fragment implements onCheck {
         reference = FirebaseStorage.getInstance().getReference("Image");
         bar = new ProgressDialog(getContext());
         bar.setMessage("Wait");
-        Bundle bundle = this.getArguments();
-        assert bundle != null;
-        Name = bundle.getString("name");
-        uri = Uri.parse(bundle.getString("image"));
+
+        Name = getActivity().getIntent().getStringExtra("Name");
+        uri = Uri.parse(getActivity().getIntent().getStringExtra("Images"));
 //        binding.makeGroup.setOnClickListener(view -> CreateGroup(uri));
         getUser();
 
@@ -68,7 +67,7 @@ public class MakeGroupFragment extends Fragment implements onCheck {
 
     void getUser() {
         ArrayList<UserAccountModel> userInfoS = new ArrayList<>();
-        userInfoAdapters = new UserInfoAdapters(userInfoS, getContext(),binding.makeGroup   ,this);
+        userInfoAdapters = new UserInfoAdapters(userInfoS, getContext(),binding.makeGroup,this);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         binding.rec.setLayoutManager(layoutManager);
         binding.rec.setAdapter(userInfoAdapters);

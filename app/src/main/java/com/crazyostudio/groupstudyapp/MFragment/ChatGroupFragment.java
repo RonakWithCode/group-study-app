@@ -43,6 +43,9 @@ public class ChatGroupFragment extends Fragment implements chatmenuOncheck {
     UserAccountModel userAccountModel;
     ChatAdapters chatAdapters;
     @SuppressLint("NotifyDataSetChanged")
+
+
+
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -53,13 +56,14 @@ public class ChatGroupFragment extends Fragment implements chatmenuOncheck {
         UserImage = getActivity().getIntent().getStringExtra("DP");
         UserBio = getActivity().getIntent().getStringExtra("Bio");
         UserGroupId = getActivity().getIntent().getStringExtra("GroupId");
-        binding.toolbar2.setOnClickListener(view -> {
+
+
 //            Intent intent = new Intent(this, SeeUserProfile.class);
 //            intent.putExtra("name",UserName);
 //            intent.putExtra("Images",UserImage);
 //            intent.putExtra("Bio",UserBio);
 //            startActivity(intent);
-        });
+//        });
 
         userAccountModel = new UserAccountModel();
         firebaseDatabase.getReference().child("Accounts").child(Objects.requireNonNull(FirebaseAuth.getInstance().getUid())).addListenerForSingleValueEvent(new ValueEventListener() {

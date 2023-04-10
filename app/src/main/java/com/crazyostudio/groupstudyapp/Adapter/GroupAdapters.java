@@ -12,10 +12,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.crazyostudio.groupstudyapp.ChatActivity;
 import com.crazyostudio.groupstudyapp.Model.GroupModel;
-import com.crazyostudio.groupstudyapp.Model.UserAccountModel;
 import com.crazyostudio.groupstudyapp.R;
 import com.crazyostudio.groupstudyapp.databinding.GrouplookBinding;
-import com.crazyostudio.groupstudyapp.databinding.UserlookBinding;
 
 import java.util.ArrayList;
 

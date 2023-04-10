@@ -12,6 +12,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.crazyostudio.groupstudyapp.GroupManger2Activity;
+import com.crazyostudio.groupstudyapp.GroupMangerActivity;
 import com.crazyostudio.groupstudyapp.R;
 import com.crazyostudio.groupstudyapp.databinding.FragmentGroupCreateLayoutBinding;
 import com.crazyostudio.groupstudyapp.onCheck;
@@ -35,13 +37,16 @@ public class GroupCreateLayoutFragment extends Fragment  {
                         .start(1));
 
         binding.next.setOnClickListener(view -> {
-            Bundle bundle = new Bundle();
-            bundle.putString("image",dataUri.toString());
-            bundle.putString("name",binding.Groupname.getText().toString());
-            MakeGroupFragment makeGroupFragment = new MakeGroupFragment();
-            makeGroupFragment.setArguments(bundle);
-            assert getFragmentManager() != null;
-            getFragmentManager().beginTransaction().replace(R.id.frameLayout,makeGroupFragment).commit();
+            Intent intent = new Intent(getContext(), GroupManger2Activity.class);
+            intent.putExtra("Name",binding.Groupname.getText().toString());
+            intent.putExtra("Images",dataUri.toString());
+            requireContext().startActivity(intent);
+            getActivity().finish();
+//            Bundle bundle = new Bundle();
+//             MakeGroupFragment makeGroupFragment = new MakeGroupFragment();
+//            makeGroupFragment.setArguments(bundle);
+//            assert getFragmentManager() != null;
+//            getFragmentManager().beginTransaction().replace(R.id.view,makeGroupFragment).commit();
         });
 
 

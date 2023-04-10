@@ -7,6 +7,7 @@ import androidx.fragment.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.crazyostudio.groupstudyapp.MFragment.PhoneAuthFragment;
 import com.crazyostudio.groupstudyapp.MFragment.SignUpFragment;
 import com.crazyostudio.groupstudyapp.databinding.ActivityAuthBinding;
 import com.google.firebase.auth.FirebaseAuth;
@@ -20,7 +21,7 @@ public class Auth extends AppCompatActivity {
         binding = ActivityAuthBinding.inflate(getLayoutInflater());
 
         setContentView(binding.getRoot());
-        LoadFragment(new SignUpFragment(), 0);
+        LoadFragment(new PhoneAuthFragment(), 0);
     }
 
     public void LoadFragment(Fragment fragment, int id) {

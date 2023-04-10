@@ -1,6 +1,7 @@
 package com.crazyostudio.groupstudyapp.MFragment;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +12,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.crazyostudio.groupstudyapp.Adapter.GroupAdapters;
+import com.crazyostudio.groupstudyapp.GroupMangerActivity;
 import com.crazyostudio.groupstudyapp.Model.GroupModel;
 import com.crazyostudio.groupstudyapp.Model.UserAccountModel;
 import com.crazyostudio.groupstudyapp.R;
@@ -41,7 +43,10 @@ public class homeFragment extends Fragment {
 
         binding.createGroupBtu.setOnClickListener(view->
         {
-            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout,new GroupCreateLayoutFragment()).commit();
+            Intent intent =new Intent(getContext(), GroupMangerActivity.class);intent.putExtra("ID","0");
+            requireContext().startActivity(intent);
+
+//            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.view,new GroupCreateLayoutFragment()).commit();
 
         });
 
@@ -62,10 +67,17 @@ public class homeFragment extends Fragment {
                 userInfoS.clear();
                 for (DataSnapshot snapshot1 : snapshot.getChildren()) {
                     GroupModel userInfo = snapshot1.getValue(GroupModel.class);
-                    for (int i = 0; i < userInfo.getId().size(); i++) {
-                        if (userInfo.getId().get(i).matches(Objects.requireNonNull(FirebaseAuth.getInstance().getUid()))) {
-                            userInfoS.add(userInfo);
+                    if (userInfo != null) {
+                        binding.recycler.setVisibility(View.VISIBLE);
+                        binding.text.setVisibility(View.GONE);
+                        for (int i = 0; i < Objects.requireNonNull(userInfo).getId().size(); i++) {
+                            if (userInfo.getId().get(i).matches(Objects.requireNonNull(FirebaseAuth.getInstance().getUid()))) {
+                                userInfoS.add(userInfo);
+
+                            }
                         }
+
+
                     }
                 }
                 groupAdapters.notifyDataSetChanged();
